@@ -23,12 +23,23 @@ void setup() {
  
 }
 
+
 void loop() {
-  
+  int sumTemp=0,count=0;
+  float avgTemp=0;
   if(WiFi.status()== WL_CONNECTED){
     WiFiClient client;
     HTTPClient http;
-    http.begin(client, serverName+drawLM35());
+    for (count=0;count<15;count++)
+    {
+      sumTemp=drawLM35()+sumTemp;
+      Serial.println(sumTemp);
+    }
+    avgTemp=(float)sumTemp/(float)count;
+    Serial.print("avg Temp");
+    Serial.println(serverName+(String)avgTemp);
+    delay(300);
+    http.begin(client, serverName+(String)avgTemp);
       int httpResponseCode = http.GET();
       if (httpResponseCode>0) {
         Serial.print("HTTP Response code: ");
@@ -45,7 +56,7 @@ void loop() {
   }
 }
 
-String drawLM35() {
+int drawLM35() {
   int val = 0;
   for (int i = 0; i < 10; i++) {
     val += analogRead(A0);
@@ -54,8 +65,7 @@ String drawLM35() {
 
   int templm35 = val * 33 / 1023;
 
-  String temprature(templm35);
-  return temprature;
+  return templm35;
   
 
 }
