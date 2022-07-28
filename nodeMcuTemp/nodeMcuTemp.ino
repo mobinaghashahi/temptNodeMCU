@@ -3,10 +3,10 @@
 #include <ESP8266HTTPClient.h>
 #include <Wire.h>
 
-const char* ssid = "SSID";
-const char* password = "PASSWORD";
+const char* ssid = "SSID NETWORK";
+const char* password = "PASSWORD NETWORK";
 
-String serverName = "YOUR SERVER NAME";
+String serverName = "SERVER NAME";
 
 void setup() {
   Serial.begin(9600);
@@ -28,7 +28,7 @@ void loop() {
   if(WiFi.status()== WL_CONNECTED){
     WiFiClient client;
     HTTPClient http;
-    http.begin(client, "http://mobinaghashahi.ir/storeTemp.php?temp="+drawLM35());
+    http.begin(client, serverName+drawLM35());
       int httpResponseCode = http.GET();
       if (httpResponseCode>0) {
         Serial.print("HTTP Response code: ");
