@@ -6,7 +6,7 @@
 const char* ssid = "SSID";
 const char* password = "PASSWORD";
 
-String serverName = "http://www.mobinaghashahi.ir/storeTemp.php";
+String serverName = "YOUR SERVER NAME";
 
 void setup() {
   Serial.begin(9600);
